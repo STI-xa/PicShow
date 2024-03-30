@@ -7,7 +7,11 @@ from .validators import validate_username
 
 class User(AbstractUser):
     """Класс модели пользователя."""
-
+    REQUIRED_FIELDS = [
+        'username',
+        'email',
+        'password',
+    ]
     email = models.EmailField(
         'Электронная почта',
         max_length=254,

@@ -16,6 +16,7 @@ COLORS = (
     ('white', 'Белый'),
 )
 
+
 class Tag(models.Model):
     name = models.CharField(
         'Название тега',
@@ -38,7 +39,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class Category(models.Model):
     name = models.CharField(
