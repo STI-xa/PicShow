@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 
 from users.models import User
@@ -39,6 +38,22 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Category(models.Model):
+    name = models.CharField(
+        'Название категории',
+        max_length=200,
+    )
+    slug = models.SlugField('URL address', unique=True)
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Photo(models.Model):
     author = models.ForeignKey(
@@ -49,6 +64,9 @@ class Photo(models.Model):
         upload_to='photos/', blank=True, null=True)
     tag = models.ForeignKey(
         Tag, on_delete=models.SET_NULL, blank=True, null=True,
+        related_name='photos')
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, blank=True, null=True,
         related_name='photos')
     comments = models.TextField(blank=True, null=True)
 
