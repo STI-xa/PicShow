@@ -62,17 +62,32 @@ class Photo(models.Model):
     description = models.TextField('Описание фото', blank=True, null=True)
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
     image = models.ImageField(
-        upload_to='photos/', blank=True, null=True)
+        upload_to='photos/', blank=False, null=False)
     tag = models.ForeignKey(
         Tag, on_delete=models.SET_NULL, blank=True, null=True,
         related_name='photos')
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, blank=True, null=True,
         related_name='photos')
-    comments = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'Фото'
 
     def __str__(self):
         return self.description
+
+
+class Comment(models.Model):
+    photo = models.ForeignKey(
+        Photo, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return self.text
