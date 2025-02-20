@@ -27,5 +27,6 @@
   ],
   "python.testing.pytestEnabled": false,
   "python.testing.unittestEnabled": true,
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "djlint.showInstallError": false
 }
